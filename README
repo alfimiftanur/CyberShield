@@ -1,0 +1,15 @@
+# CyberShield
+Security Assessment Platform
+
+## Features
+- Authentication
+- Asset Management
+- Vulnerability Showcase
+
+## Techy Stack
+- Laravel 12
+- MySQL
+- DOcker (future/soon)
+
+## Status
+In Development
