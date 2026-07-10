@@ -33,7 +33,8 @@ Browser modern tidak mengeksekusi script tag yang diinjeksi via `innerHTML`/`dan
 2. Load gagal → browser trigger event `onerror`
 3. `onerror="alert('XSS')"` → JavaScript dieksekusi
 
-**Hasil:** [Screenshot alert muncul di Vulnerable Endpoint](../images/xss-vuln.png)
+**Hasil:** 
+![Screenshot alert muncul di Vulnerable Endpoint](../images/xss-vuln.png)
 
 ## Remediation
 
@@ -45,7 +46,8 @@ Endpoint `/lab/xss/fixed/comment` menyimpan data dengan cara yang sama, tapi mer
 
 React secara default melakukan **HTML escaping** pada semua teks yang dirender dengan sintaks `{}` — karakter seperti `<`, `>`, `"` dikonversi menjadi HTML entities (`&lt;`, `&gt;`, `&quot;`) sehingga tidak diinterpretasikan sebagai HTML oleh browser.
 
-**Hasil setelah fix:** [Screenshot payload tampil sebagai teks literal](../images/xss-fixed.png)
+**Hasil setelah fix:** 
+![Screenshot payload tampil sebagai teks literal](../images/xss-fixed.png)
 
 ## Pelajaran
 
