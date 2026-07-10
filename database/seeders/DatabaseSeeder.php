@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\LabAccountSeeder;
+use Database\Seeders\VulnerabilityModuleSeeder;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -16,12 +18,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
         User::factory()->create([
-            'name' => 'User',
-            'email' => 'test@example.com',
+            'name' => 'ifla',
+            'email' => 'ifla@cybershield.com',
             'password' => Hash::make('password'),
+        ]);
+
+        $this->call([
+            LabAccountSeeder::class,
+            VulnerabilityModuleSeeder::class,
         ]);
     }
 }
