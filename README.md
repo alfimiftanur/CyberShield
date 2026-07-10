@@ -37,7 +37,7 @@ Setiap modul tersedia di tab **"Vulnerability Labs"** pada Dashboard, dengan end
 | Modul | Status | Detail |
 |---|---|---|
 | SQL Injection | ✅ Selesai | [Lihat writeup](docs/writeups/sql-injection.md) |
-| XSS | 🔜 Belum dibangun | - |
+| XSS (Stored) | ✅ Selesai | [Lihat writeup](docs/writeups/xss-stored.md) |
 | IDOR | 🔜 Belum dibangun | - |
 | CSRF | 🔜 Belum dibangun | - |
 

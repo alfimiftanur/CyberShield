@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/lab/sqli/fixed/login', [SqliLabController::class, 'fixedLogin'])->name('lab.sqli.fixed');
     Route::post('/lab/xss/vulnerable/comment', [XssLabController::class, 'vulnerableComment'])->name('lab.xss.vulnerable');
     Route::post('/lab/xss/fixed/comment', [XssLabController::class, 'fixedComment'])->name('lab.xss.fixed');
+    Route::delete('/lab/xss/comments/reset', [XssLabController::class, 'resetComments'])->name('lab.xss.reset');
 });
 
 require __DIR__.'/auth.php';

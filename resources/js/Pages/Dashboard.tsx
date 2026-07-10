@@ -109,57 +109,74 @@ function SqliLab({ flash }: { flash: PageProps['flash'] }) {
 function XssLab({ comments }: { comments: PageProps['xssComments'] }) {
     const vulnForm = useForm({ author_name: '', body: '' });
     const fixedForm = useForm({ author_name: '', body: '' });
+    const resetForm = useForm({});
 
     return (
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <div className="rounded border border-red-400 p-4">
-                <h4 className="mb-2 font-semibold text-red-500">Vulnerable Endpoint</h4>
-                <form onSubmit={(e) => { e.preventDefault(); vulnForm.post('/lab/xss/vulnerable/comment'); }}>
-                    <input type="text" placeholder="Author name"
-                        value={vulnForm.data.author_name}
-                        onChange={(e) => vulnForm.setData('author_name', e.target.value)}
-                        className={inputClass} />
-                    <input type="text" placeholder='try: <img src=x onerror="alert(1)">'
-                        value={vulnForm.data.body}
-                        onChange={(e) => vulnForm.setData('body', e.target.value)}
-                        className={inputClass} />
-                    <button type="submit" className="rounded bg-red-500 px-4 py-1 text-white">
-                        Post Comment
-                    </button>
-                </form>
-                <div className="mt-4 space-y-2">
-                    {comments.vulnerable.map((c) => (
-                        <div key={c.id} className="rounded bg-gray-700 p-2 text-sm">
-                            <span className="font-semibold text-gray-200">{c.author_name}: </span>
-                            <span dangerouslySetInnerHTML={{ __html: c.body }} />
-                        </div>
-                    ))}
+        <div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div className="rounded border border-red-400 p-4">
+                    <h4 className="mb-2 font-semibold text-red-500">Vulnerable Endpoint</h4>
+                    <form onSubmit={(e) => { e.preventDefault(); vulnForm.post('/lab/xss/vulnerable/comment'); }}>
+                        <input type="text" placeholder="Author name"
+                            value={vulnForm.data.author_name}
+                            onChange={(e) => vulnForm.setData('author_name', e.target.value)}
+                            className={inputClass} />
+                        <input type="text" placeholder='try: <img src=x onerror="alert(1)">'
+                            value={vulnForm.data.body}
+                            onChange={(e) => vulnForm.setData('body', e.target.value)}
+                            className={inputClass} />
+                        <button type="submit" className="rounded bg-red-500 px-4 py-1 text-white">
+                            Post Comment
+                        </button>
+                    </form>
+                    <div className="mt-4 space-y-2">
+                        {comments.vulnerable.map((c) => (
+                            <div key={c.id} className="rounded bg-gray-700 p-2 text-sm">
+                                <span className="font-semibold text-gray-200">{c.author_name}: </span>
+                                <span dangerouslySetInnerHTML={{ __html: c.body }} />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="rounded border border-green-400 p-4">
+                    <h4 className="mb-2 font-semibold text-green-500">Fixed Endpoint</h4>
+                    <form onSubmit={(e) => { e.preventDefault(); fixedForm.post('/lab/xss/fixed/comment'); }}>
+                        <input type="text" placeholder="Author name"
+                            value={fixedForm.data.author_name}
+                            onChange={(e) => fixedForm.setData('author_name', e.target.value)}
+                            className={inputClass} />
+                        <input type="text" placeholder="try same payload"
+                            value={fixedForm.data.body}
+                            onChange={(e) => fixedForm.setData('body', e.target.value)}
+                            className={inputClass} />
+                        <button type="submit" className="rounded bg-green-600 px-4 py-1 text-white">
+                            Post Comment
+                        </button>
+                    </form>
+                    <div className="mt-4 space-y-2">
+                        {comments.fixed.map((c) => (
+                            <div key={c.id} className="rounded bg-gray-700 p-2 text-sm">
+                                <span className="font-semibold text-gray-200">{c.author_name}: </span>
+                                <span>{c.body}</span>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
 
-            <div className="rounded border border-green-400 p-4">
-                <h4 className="mb-2 font-semibold text-green-500">Fixed Endpoint</h4>
-                <form onSubmit={(e) => { e.preventDefault(); fixedForm.post('/lab/xss/fixed/comment'); }}>
-                    <input type="text" placeholder="Author name"
-                        value={fixedForm.data.author_name}
-                        onChange={(e) => fixedForm.setData('author_name', e.target.value)}
-                        className={inputClass} />
-                    <input type="text" placeholder="try same payload"
-                        value={fixedForm.data.body}
-                        onChange={(e) => fixedForm.setData('body', e.target.value)}
-                        className={inputClass} />
-                    <button type="submit" className="rounded bg-green-600 px-4 py-1 text-white">
-                        Post Comment
+            {/* Tombol Reset */}
+            <div className="mt-4 flex justify-end">
+                <form onSubmit={(e) => {
+                    e.preventDefault();
+                    if (confirm('Reset semua comment XSS lab?')) {
+                        resetForm.delete('/lab/xss/comments/reset');
+                    }
+                }}>
+                    <button type="submit" className="rounded bg-gray-600 px-4 py-1 text-sm text-white hover:bg-gray-500">
+                        Reset Lab Comments
                     </button>
                 </form>
-                <div className="mt-4 space-y-2">
-                    {comments.fixed.map((c) => (
-                        <div key={c.id} className="rounded bg-gray-700 p-2 text-sm">
-                            <span className="font-semibold text-gray-200">{c.author_name}: </span>
-                            <span>{c.body}</span>
-                        </div>
-                    ))}
-                </div>
             </div>
         </div>
     );

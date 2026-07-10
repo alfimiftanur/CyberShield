@@ -46,4 +46,9 @@ class XssLabController extends Controller
             'attempted_at'            => now(),
         ]);
     }
+    public function resetComments()
+    {
+        XssComment::truncate();
+        return back();
+    }
 }
